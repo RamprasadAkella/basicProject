@@ -41,7 +41,7 @@ console.log = function hijacked_log (level) {
 var options = {
   connectors: {'123': '123'},
   systemToken: '12323',
-  port: 5000
+  port: 80
 }
 
 integratorExtension.createServer(options, function (error) {
