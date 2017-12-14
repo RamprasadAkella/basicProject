@@ -1,6 +1,7 @@
 var logger = require('winston')
 var WinstonDailyRotateFile = require('winston-daily-rotate-file')
 var integratorExtension = require('express-integrator-extension')
+var AWS = require('aws-sdk')
 
 var consoleTransportOpts = {
   colorize: true,
@@ -41,7 +42,7 @@ console.log = function hijacked_log (level) {
 var options = {
   connectors: {'123': '123'},
   systemToken: '12323',
-  port: 80
+  port: 8081
 }
 
 integratorExtension.createServer(options, function (error) {
@@ -49,6 +50,15 @@ integratorExtension.createServer(options, function (error) {
     logger.error('Failed to create integrator extension server due to: ' + error.message)
     throw error
   }
+  var params = {
+    Bucket: 'io-ramtest'
+  }
+
+  new AWS.S3().listObjects(params, function (err, data) {
+    if (err) return logger.error(err)
+    logger.info('List Objects call is successful')
+    logger.info(data)
+  })
 
   logger.info('logName=serverStarted')
 })

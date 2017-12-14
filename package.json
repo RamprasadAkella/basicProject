@@ -11,6 +11,7 @@
   "dependencies": {
     "winston": "2.2.0",
     "winston-daily-rotate-file": "1.0.1",
-    "express-integrator-extension": "0.2.2"
+    "express-integrator-extension": "0.2.2",
+    "aws-sdk": "2.145.0"
   }
 }
