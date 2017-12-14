@@ -50,15 +50,17 @@ integratorExtension.createServer(options, function (error) {
     logger.error('Failed to create integrator extension server due to: ' + error.message)
     throw error
   }
+
+  var AWS = require('aws-sdk')
   var params = {
     Bucket: 'io-ramtest'
   }
 
-  new AWS.S3().listObjects(params, function (err, data) {
-    if (err) return logger.error(err)
-    logger.info('List Objects call is successful')
-    logger.info(data)
+  var s3Client = new AWS.S3()
+  s3Client.listObjects(params, function (err, data) {
+    if (err) throw err
+    console.log('no error !')
+    console.log('logName=printing data', data)
   })
-
   logger.info('logName=serverStarted')
 })
